@@ -46,12 +46,15 @@ public class ProductService {
         return convertToDTO(product);
     }
 
-    public List<Product> searchProducts(String category, Double minPrice, Double maxPrice, String keyword, Double ratings){
+    public List<ProductDTO> searchProducts(String category, Double minPrice, Double maxPrice, String keyword, Double ratings){
         Specification <Product> spec = Specification.where(ProductSpecification.hasCategory(category))
                 .and(ProductSpecification.priceBetween(minPrice, maxPrice))
                 .and(ProductSpecification.hasNameOrDescriptionLike(keyword))
                 .and(ProductSpecification.ratingGreaterThan(ratings));
-        return productRepository.findAll(spec);
+        return productRepository.findAll(spec)
+                .stream()
+                .map(this::convertToDTO)
+                .toList();
     }
 
     public void addReview(ProductReviewDTO reviewDTO){
