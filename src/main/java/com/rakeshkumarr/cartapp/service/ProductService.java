@@ -38,10 +38,12 @@ public class ProductService {
         return response;
     }
 
-    public Product getProductById(Long id){
-        return productRepository.findById(id).orElseThrow(
+    public ProductDTO getProductById(Long id){
+        Product product = productRepository.findById(id).orElseThrow(
                 ()-> new RuntimeException("Product not found with the id " + id)
         );
+        
+        return convertToDTO(product);
     }
 
     public List<Product> searchProducts(String category, Double minPrice, Double maxPrice, String keyword, Double ratings){

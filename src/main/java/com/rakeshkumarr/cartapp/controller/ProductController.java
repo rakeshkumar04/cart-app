@@ -1,5 +1,6 @@
 package com.rakeshkumarr.cartapp.controller;
 
+import com.rakeshkumarr.cartapp.dto.ProductDTO;
 import com.rakeshkumarr.cartapp.entity.Product;
 import com.rakeshkumarr.cartapp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable Long id) {
+    public ProductDTO getProductById(@PathVariable Long id) {
 
         return productService.getProductById(id);
     }
